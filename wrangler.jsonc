@@ -1,11 +1,15 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
+  "account_id": "35007d38739e6908a92dfb6285d57abc",
   "name": "nemo-agent-developer",
   "main": "src/index.ts",
   "compatibility_date": "2025-05-06",
   "compatibility_flags": ["nodejs_compat"],
   "observability": {
     "enabled": true,
+  },
+  "placement": {
+    "region": "aws:us-east-1",
   },
   // Static assets for admin UI (built by vite)
   "assets": {
@@ -37,8 +41,8 @@
     {
       "class_name": "Sandbox",
       "image": "./Dockerfile",
-      "instance_type": "standard-1",
-      "max_instances": 1,
+      "instance_type": "standard-4",
+      "max_instances": 4,
     },
   ],
   "durable_objects": {

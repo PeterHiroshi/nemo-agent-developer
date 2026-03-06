@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/mahao/Library/Preferences/.wrangler/logs/**)",
+      "Bash(npm install)",
+      "Bash(npx wrangler deploy --name nemo-agent-developer)",
+      "Bash(CLOUDFLARE_ACCOUNT_ID=35007d38739e6908a92dfb6285d57abc npx wrangler deploy --name nemo-agent-developer)",
+      "Bash(docker version --format '{{.Client.Version}}')",
+      "Bash(docker buildx version)",
+      "Bash(brew list --cask)",
+      "Bash(brew install --cask docker)",
+      "Bash(source ~/.nvm/nvm.sh)",
+      "Bash(nvm ls)",
+      "Bash(nvm alias default v24.13.0)",
+      "Bash(nvm use default)",
+      "Bash(node --version)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs",
+      "Bash(npm run build)",
+      "Bash(CLOUDFLARE_ACCOUNT_ID=35007d38739e6908a92dfb6285d57abc npx wrangler secret list --name nemo-agent-developer)"
+    ]
+  }
+}
