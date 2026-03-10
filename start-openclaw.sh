@@ -164,10 +164,15 @@ if (process.env.OPENCLAW_GATEWAY_TOKEN) {
     config.gateway.auth.token = process.env.OPENCLAW_GATEWAY_TOKEN;
 }
 
-if (process.env.OPENCLAW_DEV_MODE === 'true') {
-    config.gateway.controlUi = config.gateway.controlUi || {};
-    config.gateway.controlUi.allowInsecureAuth = true;
-}
+// if (process.env.OPENCLAW_DEV_MODE === 'true') {
+//     config.gateway.controlUi = config.gateway.controlUi || {};
+//     config.gateway.controlUi.allowInsecureAuth = true;
+// }
+
+// Allow all origins for Control UI when accessed through proxy
+// The worker proxies requests, so the origin will be the worker URL
+config.gateway.controlUi = config.gateway.controlUi || {};
+config.gateway.controlUi.allowedOrigins = ['*'];
 
 // Legacy AI Gateway base URL override:
 // ANTHROPIC_BASE_URL is picked up natively by the Anthropic SDK,
