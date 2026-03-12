@@ -9,6 +9,19 @@
 
 set -e
 
+# ============================================================
+# MEMORY LIMITS
+# ============================================================
+# Container has 12GB total (standard-4). Budget:
+#   - OpenClaw gateway: ~2GB
+#   - Claude Code processes (spawned by agents): ~8GB shared
+#   - System/rclone/watchdog: ~1GB
+#   - Headroom for OS/cache: ~1GB
+#
+# NODE_OPTIONS applies to all node processes including Claude Code.
+# Individual Claude Code processes inherit this limit.
+export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=4096}"
+
 if pgrep -f "openclaw gateway" > /dev/null 2>&1; then
     echo "OpenClaw gateway is already running, exiting."
     exit 0
@@ -312,6 +325,18 @@ if r2_configured; then
         done
     ) &
     echo "Background sync loop started (PID: $!)"
+fi
+
+# ============================================================
+# MEMORY WATCHDOG
+# ============================================================
+WATCHDOG_SCRIPT="/usr/local/bin/memory-watchdog.sh"
+if [ -x "$WATCHDOG_SCRIPT" ]; then
+    echo "Starting memory watchdog..."
+    bash "$WATCHDOG_SCRIPT" &
+    echo "Memory watchdog started (PID: $!)"
+else
+    echo "WARNING: Memory watchdog not found at $WATCHDOG_SCRIPT"
 fi
 
 # ============================================================

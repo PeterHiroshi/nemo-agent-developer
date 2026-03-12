@@ -31,10 +31,11 @@ RUN mkdir -p /root/.openclaw \
     && mkdir -p /root/clawd \
     && mkdir -p /root/clawd/skills
 
-# Copy startup script
-# Build cache bust: 2026-03-10-v31-allowed-origins
+# Copy startup script and memory watchdog
+# Build cache bust: 2026-03-12-v32-memory-watchdog
 COPY start-openclaw.sh /usr/local/bin/start-openclaw.sh
-RUN chmod +x /usr/local/bin/start-openclaw.sh
+COPY memory-watchdog.sh /usr/local/bin/memory-watchdog.sh
+RUN chmod +x /usr/local/bin/start-openclaw.sh /usr/local/bin/memory-watchdog.sh
 
 # Copy custom skills
 COPY skills/ /root/clawd/skills/
